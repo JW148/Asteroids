@@ -86,10 +86,6 @@ class Asteroid {
       pv.y -= smallestY;
     }
   }
-  
-  size(){
-      
-  }
 
   update() {
     this.x += cos(radians(this.dir)) * this.speed;

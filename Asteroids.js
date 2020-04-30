@@ -184,8 +184,6 @@ function play() {
     if (a.spawn == false) {
       a.checkBounds();
 
-      //run hit detecttion against bullets and the player every other frame
-      if (frameCount % 2 == 0) {
         //asteroid - player collision
         a.checkHit(p.playerScreenCoords);
         if (a.hit) {
@@ -219,7 +217,6 @@ function play() {
             asteroidsToDelete.push(a);
           }
         }
-      }
     }
     if (a.offScreen == true && a.spawn == false) asteroidsToDelete.push(a);
   }

@@ -20,8 +20,8 @@ class Player {
   }
 
   update() {
-    if (isLeft && !isRight) this.angle -= 0.08;
-    if (isRight && !isLeft) this.angle += 0.08;
+    if (isLeft && !isRight) this.angle -= 0.065;
+    if (isRight && !isLeft) this.angle += 0.065;
     if (isUp && !isDown) {
       this.boost();
     }
