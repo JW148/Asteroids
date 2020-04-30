@@ -1,7 +1,6 @@
 class Player {
   constructor(x, y) {
-    this.x = x;
-    this.y = y;
+    this.pos = createVector(x, y);
 
     this.playerCoords = [];
     this.playerCoords.push(createVector(37.5, 0));
@@ -11,47 +10,42 @@ class Player {
     this.playerScreenCoords = [];
 
     this.angle = 0;
-    this.speed = 0;
+    this.speed = createVector(0, 0);
     this.maxSpeed = 6;
-    this.friction = 0.98;
+    this.friction = 0.99;
     this.collision = false;
     this.zone = true;
   }
 
   update() {
-    if (isLeft && !isRight) this.angle -= 0.06;
-    if (isRight && !isLeft) this.angle += 0.06;
+    if (isLeft && !isRight) this.angle -= 0.08;
+    if (isRight && !isLeft) this.angle += 0.08;
     if (isUp && !isDown) {
-      if (this.speed < this.maxSpeed) this.speed += 0.2;
-      else this.speed = this.maxSpeed;
+      this.boost();
     }
-    if (isDown && !isUp) {
-      if (this.speed > -this.maxSpeed) this.speed -= 0.1;
-      else this.speed = -this.maxSpeed;
-    }
-    if (!isUp && !isDown) {
-      if (this.speed > 0 || this.speed < 0) {
-        this.speed *= this.friction;
-      } else {
-        this.speed = 0;
-      }
-    }
-    this.x += cos(this.angle) * this.speed;
-    this.y += sin(this.angle) * this.speed;
+    this.pos.add(this.speed);
+    this.speed.mult(this.friction);
+  }
+
+  boost() {
+    let force = p5.Vector.fromAngle(this.angle);
+    force.mult(0.2);
+    this.speed.limit(9);
+    this.speed.add(force);
   }
 
   display() {
     push();
-    translate(this.x, this.y);
+    translate(this.pos.x, this.pos.y);
     rotate(this.angle);
-    this.playerScreenCoords=this.pointsToScreenCoords(this.playerCoords);
+    this.playerScreenCoords = this.pointsToScreenCoords(this.playerCoords);
     // print(this.playerScreenCoords[0].x, this.playerScreenCoords[0].y);
     stroke(0, 247, 107);
     strokeWeight(4);
     noFill(0);
     beginShape();
-    for(let pt of this.playerCoords){
-       vertex(pt.x, pt.y);
+    for (let pt of this.playerCoords) {
+      vertex(pt.x, pt.y);
     }
     endShape(CLOSE);
     pop();
@@ -64,12 +58,12 @@ class Player {
     }
     return screenPoints;
   }
-  
+
   checkBounds() {
-    if (this.x > width + 50) this.x -= (width+80);
-    if (this.x < -50) this.x += (width+80);
-    if (this.y > height + 50) this.y -= (height+80);
-    if (this.y < -50) this.y += (height+80);
+    if (this.pos.x > width + 50) this.pos.x -= (width + 80);
+    if (this.pos.x < -50) this.pos.x += (width + 80);
+    if (this.pos.y > height + 50) this.pos.y -= (height + 80);
+    if (this.pos.y < -50) this.pos.y += (height + 80);
   }
 
 }

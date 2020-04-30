@@ -194,9 +194,10 @@ function play() {
           for (let as of asteroids.values()) {
             asteroidsToDelete.push(as);
           }
-          p.x = width / 2;
-          p.y = height / 2;
-          p.speed = 0;
+          p.pos.x = width / 2;
+          p.pos.y = height / 2;
+          p.speed.x = 0;
+          p.speed.y = 0;
           if (lives.length > 0) {
             lives.pop();
             numLives--;
@@ -276,7 +277,7 @@ function keyPressed() {
       break;
     case 32: //space
       if (gameMode == 1) {
-        bullets.push(new Bullet(p.x, p.y, p.angle));
+        bullets.push(new Bullet(p.pos.x, p.pos.y, p.angle));
         s.laserSound();
       }
       break;
