@@ -126,7 +126,7 @@ function menu() {
 
   for (let a of asteroidsToDelete) {
     let randomZone = int(random(0, 4));
-    asteroids.set(a.id, new Asteroid(a.id));
+    asteroids.set(a.id, new Asteroid(a.id, ));
   }
 
   playBtn.display();
@@ -277,7 +277,7 @@ function keyPressed() {
       break;
     case 32: //space
       if (gameMode == 1) {
-        bullets.push(new Bullet(p.pos.x, p.pos.y, p.angle));
+        bullets.push(new Bullet(p.front.x, p.front.y, p.angle));
         s.laserSound();
       }
       break;

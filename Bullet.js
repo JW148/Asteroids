@@ -5,10 +5,11 @@ class Bullet {
     this.angle = angle;
 
     this.coords = [];
-    this.coords.push(createVector(-5, -5));
-    this.coords.push(createVector(5, -5));
-    this.coords.push(createVector(5, 5));
-    this.coords.push(createVector(-5, 5));
+    this.size = 3;
+    this.coords.push(createVector(-this.size, -this.size));
+    this.coords.push(createVector(this.size, -this.size));
+    this.coords.push(createVector(this.size, this.size));
+    this.coords.push(createVector(-this.size, this.size));
     this.bulletScreenCoords = [];
 
     this.speed = 10;

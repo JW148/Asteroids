@@ -8,6 +8,8 @@ class Player {
     this.playerCoords.push(createVector(-12.5, 0));
     this.playerCoords.push(createVector(-37.5, 50));
     this.playerScreenCoords = [];
+    
+    this.front = createVector(0,0);
 
     this.angle = 0;
     this.speed = createVector(0, 0);
@@ -39,9 +41,9 @@ class Player {
     translate(this.pos.x, this.pos.y);
     rotate(this.angle);
     this.playerScreenCoords = this.pointsToScreenCoords(this.playerCoords);
-    // print(this.playerScreenCoords[0].x, this.playerScreenCoords[0].y);
+    this.front = screenPosition(this.playerCoords[0]);
     stroke(0, 247, 107);
-    strokeWeight(4);
+    strokeWeight(2);
     noFill(0);
     beginShape();
     for (let pt of this.playerCoords) {

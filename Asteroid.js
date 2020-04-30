@@ -10,6 +10,7 @@ class Asteroid {
     this.rotSpeed = this.zoneParams[randomZone][3];
     this.dir = this.zoneParams[randomZone][4];
     this.id = id;
+    this.size = random(0.6, 1.4);
     this.zone = randomZone;
 
 
@@ -27,7 +28,7 @@ class Asteroid {
 
   makeZones() {
     let minSpeed = 1.5;
-    let maxSpd = 4;
+    let maxSpd = 3;
     let xMin = 50;
     let xMax = 55;
     let yMin = 50;
@@ -47,7 +48,7 @@ class Asteroid {
     for (let i = 0; i < this.polySides; i++) {
       let x = cos(radians(a)) * random(30, 50);
       let y = sin(radians(a)) * random(30, 50);
-      this.poly.push(createVector(x, y));
+      this.poly.push(createVector(x, y).div(this.size));
       a += random(15, 40);
     }
   }
@@ -85,6 +86,10 @@ class Asteroid {
       pv.y -= smallestY;
     }
   }
+  
+  size(){
+      
+  }
 
   update() {
     this.x += cos(radians(this.dir)) * this.speed;
@@ -98,7 +103,7 @@ class Asteroid {
     rotate(this.angle += this.rotSpeed);
     this.asteroidScreenCoords = this.pointsToScreenCoords(this.poly);
     stroke(255);
-    strokeWeight(4);
+    strokeWeight(2);
     noFill();
     beginShape();
     for (let pt of this.poly) {
