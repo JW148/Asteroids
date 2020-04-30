@@ -125,8 +125,7 @@ function menu() {
   }
 
   for (let a of asteroidsToDelete) {
-    let randomZone = int(random(0, 4));
-    asteroids.set(a.id, new Asteroid(a.id, ));
+    asteroids.set(a.id, new Asteroid(a.id));
   }
 
   playBtn.display();
@@ -183,7 +182,7 @@ function play() {
     a.update();
     if (a.spawn == false) {
       a.checkBounds();
-
+      if (p.pos.dist(a.pos) < 100) {
         //asteroid - player collision
         a.checkHit(p.playerScreenCoords);
         if (a.hit) {
@@ -206,9 +205,11 @@ function play() {
           }
           p.collision = false;
         }
+      }
 
-        //asteroid - bullet collision here
-        for (let b of bullets) {
+      //asteroid - bullet collision here
+      for (let b of bullets) {
+        if (b.pos.dist(a.pos) < 100) {
           a.checkHit(b.bulletScreenCoords);
           if (a.hit) {
             s.asteroidHitSound();
@@ -217,13 +218,13 @@ function play() {
             asteroidsToDelete.push(a);
           }
         }
+      }
     }
     if (a.offScreen == true && a.spawn == false) asteroidsToDelete.push(a);
   }
   // print(millis() - startTime);
 
   for (let a of asteroidsToDelete) {
-    let randomZone = int(random(0, 4));
     asteroids.set(a.id, new Asteroid(a.id));
   }
 

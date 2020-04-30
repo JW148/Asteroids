@@ -1,7 +1,6 @@
 class Bullet {
   constructor(x, y, angle) {
-    this.x = x;
-    this.y = y;
+    this.pos = createVector(x, y);
     this.angle = angle;
 
     this.coords = [];
@@ -18,13 +17,13 @@ class Bullet {
   }
 
   update() {
-    this.x += cos(this.angle) * this.speed;
-    this.y += sin(this.angle) * this.speed;
+    this.pos.x += cos(this.angle) * this.speed;
+    this.pos.y += sin(this.angle) * this.speed;
   }
 
   display() {
     push();
-    translate(this.x, this.y);
+    translate(this.pos.x, this.pos.y);
     rotate(this.angle);
     this.bulletScreenCoords = this.pointsToScreenCoords(this.coords);
     noStroke(0);
@@ -46,8 +45,8 @@ class Bullet {
   }
 
   checkBounds() {
-    if (this.x < 5 || this.x > width + 5) this.offScreen =  true;
-    else if (this.y < 5 || this.y > height + 5) this.offScreen = true;
+    if (this.pos.x < 5 || this.pos.x > width + 5) this.offScreen =  true;
+    else if (this.pos.y < 5 || this.pos.y > height + 5) this.offScreen = true;
     else this.offScreen =  false;
   }
 }

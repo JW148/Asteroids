@@ -6,6 +6,7 @@ class Asteroid {
     this.makeZones();
     this.x = this.zoneParams[randomZone][0];
     this.y = this.zoneParams[randomZone][1];
+    this.pos = createVector(this.x, this.y);
     this.speed = this.zoneParams[randomZone][2];
     this.rotSpeed = this.zoneParams[randomZone][3];
     this.dir = this.zoneParams[randomZone][4];
@@ -88,14 +89,14 @@ class Asteroid {
   }
 
   update() {
-    this.x += cos(radians(this.dir)) * this.speed;
-    this.y += sin(radians(this.dir)) * this.speed;
+    this.pos.x += cos(radians(this.dir)) * this.speed;
+    this.pos.y += sin(radians(this.dir)) * this.speed;
     if (this.spawn) this.checkSpawn(zones[this.zone].zoneScreenCoords);
   }
 
   display() {
     push();
-    translate(this.x, this.y);
+    translate(this.pos.x, this.pos.y);
     rotate(this.angle += this.rotSpeed);
     this.asteroidScreenCoords = this.pointsToScreenCoords(this.poly);
     stroke(255);
@@ -118,10 +119,10 @@ class Asteroid {
   }
 
   checkBounds() {
-    if (this.x > width + 100) this.offScreen = true;
-    if (this.x < -100) this.offScreen = true;
-    if (this.y > height + 100) this.offScreen = true;
-    if (this.y < -100) this.offScreen = true;
+    if (this.pos.x > width + 100) this.offScreen = true;
+    if (this.pos.x < -100) this.offScreen = true;
+    if (this.pos.y > height + 100) this.offScreen = true;
+    if (this.pos.y < -100) this.offScreen = true;
   }
 
   checkSpawn(screenCoords) {
